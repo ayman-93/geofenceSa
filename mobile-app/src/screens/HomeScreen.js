@@ -36,8 +36,8 @@ export default HomeScreen = ({ navigation, route }) => {
                 title="Open Modal"
             />
             <Button
-                onPress={() => navigation.navigate('Login')}
-                title="Login"
+                onPress={() => navigation.navigate('Chat')}
+                title="Chat"
             />
             <Button
                 onPress={() => {

@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
+import ChatScreen from './src/screens/ChatScreen/ChatScreen';
 
 
 
@@ -41,7 +42,7 @@ const DetailsScreen = ({ route, navigation }) => {
         onPress={() => navigation.navigate('MyModal')}
         title="Open Modal"
       />
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+      <Button title="open chat" onPress={() => navigation.navigate('Chat')} />
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
@@ -116,8 +117,10 @@ const MainStackScreen = () => {
               fontWeight: 'bold'
             }
           }} />
-          <MainStack.Screen options={({ route }) => ({ title: route.params.name })} name="Details" component={DetailsScreen} /></>}
-    </MainStack.Navigator>
+          <MainStack.Screen options={({ route }) => ({ title: route.params.name })} name="Details" component={DetailsScreen} />
+          <MainStack.Screen name="Chat" component={ChatScreen} />
+        </>}
+    </MainStack.Navigator >
   )
 }
 

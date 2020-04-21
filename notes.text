@@ -17,11 +17,13 @@ user:
 #3- register date.
 #4- assaign hostpital
 #5- user body temperature.
+#6- location [{ lng, ltd },{ lng, ltd },{ lng, ltd },{ lng, ltd }].
 
 userTemperature:
 #1- userId
 #2- temperature
 #3- date.
+
 
 conversations:
 #0- conersationId.
@@ -31,6 +33,8 @@ conversations:
 #4- message.
 #5- created
 #6- lastUpdated
+
+
 
 
 
@@ -62,9 +66,5 @@ if the user leave the geolaction that specified for him the addmin will git noti
 the app should have temperatare tracking
 
 the app should contact the authority organisation if the user have emerginacy.
-
-
-
-1 - 
 
 

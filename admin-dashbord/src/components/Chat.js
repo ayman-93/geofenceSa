@@ -7,7 +7,7 @@ const Chat = () => {
     const [text, setText] = useState([]);
 
     useEffect(() => {
-        socket.emit("startConversation", "userID", socket.id);
+        socket.on("conversationNotification", notificationHandler);
         socket.on("chat", chatHandler);
     }, []);
 
@@ -30,6 +30,34 @@ const Chat = () => {
         setText([...text, txt]);
         setMessage("");
     };
+
+    const notificationHandler = ({ userID, userSocketId }) => {
+        console.log("userId, userSocketId ", userID, userSocketId);
+
+        const txt = (
+            <div className="msj-rta macro">
+                <div className="text text-r">
+                    <p>user {userID} is waiting</p>
+                    <button onClick={() => acceptConversation(userSocketId)}>Accept</button>
+                    <p>
+                        <small>{Date.now()}</small>
+                    </p>
+                </div>
+                <div
+                    className="avatar"
+                    style={{ padding: "0px 0px 0px 10px !important" }}
+                ></div>
+            </div>
+        );
+
+        setText([...text, txt]);
+    }
+
+    const acceptConversation = (userSocketId) => {
+        console.log("accept with ", userSocketId);
+
+        socket.emit('acceptConversation', { admin: socket.id, user: userSocketId })
+    }
 
     const chatHandler = (msg) => {
         const txt = (

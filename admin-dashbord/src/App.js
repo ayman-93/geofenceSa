@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+// import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import Sidebar from "./components/Sidebar";
+import Chat from "./components/Chat";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./components/Sidebar.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [active, toggleActive] = useState(false);
+
+    return (
+        <Router>
+            <div className="wrapper d-flex align-items-stretch">
+                <Sidebar active={active} />
+                <div id="content" className="p-4 p-md-5">
+                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                        <div className="container-fluid">
+                            <button
+                                type="button"
+                                id="sidebarCollapse"
+                                className="btn btn-primary"
+                                onClick={() => toggleActive(!active)}
+                            >
+                                <i className="fa fa-bars"></i>
+                                <span className="sr-only">Toggle Menu</span>
+                            </button>
+                        </div>
+                    </nav>
+                    <Switch>
+                        <Route exact path="/chat" component={Chat} />
+                    </Switch>
+                </div>
+            </div>
+        </Router>
+    );
 }
 
 export default App;

@@ -35,13 +35,15 @@ io.on("connect", (socket) => {
         if (data.id === "userID") {
             console.log("a User connected");
 
-            socket.on("startConversation", (userID, user) => {
-                waitingUsers.push(user);
+            socket.on("startConversation", ({ userID, userSocketId }) => {
+                console.log("userID, userSocketId ", userID, userSocketId)
+                waitingUsers.push(userSocketId);
+                io.to(userSocketId).emit("chat", "You are in the waiting list.")
 
                 admins.forEach((admin) =>
                     io
                         .to(admin)
-                        .emit("conversationNotification", { id: userID, user })
+                        .emit("conversationNotification", { userID, userSocketId })
                 );
             });
 
@@ -57,7 +59,7 @@ io.on("connect", (socket) => {
             socket.on("acceptConversation", (data) => {
                 if (waitingUsers.find((u) => u === data.user)) {
                     waitingUsers = waitingUsers.filter((u) => u !== data.user);
-
+                    socket.to(data.user).emit('chat', `admin ${data.admin} talking with you.`)
                     connectChat(
                         io.sockets.connected[data.admin],
                         io.sockets.connected[data.user]

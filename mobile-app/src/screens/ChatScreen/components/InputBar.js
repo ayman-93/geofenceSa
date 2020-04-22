@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
-import { View, TextInput } from "react-native";
+import { View, TextInput, Text, TouchableHighlight, StyleSheet } from "react-native";
 
+import styles from '../style';
 //The bar at the bottom with a textbox and a send button.
 export default InputBar = (props) => {
     const autogrowInput = useRef(null)
@@ -9,18 +10,24 @@ export default InputBar = (props) => {
     //Another possible solution here would be if InputBar kept the text as state and only reported it when the Send button
     //was pressed. Then, resetInputText() could be called when the Send button is pressed. However, this limits the ability
     //of the InputBar's text to be set from the outside.
-    if (nextProps.text === '') {
-        autogrowInput.resetInputText();
-    }
+    // if (React.nextProps.text === '') {
+    //     autogrowInput.resetInputText();
+    // }
     // componentWillReceiveProps(nextProps) {
     //   if(nextProps.text === '') {
     //     autogrowInput.resetInputText();
     //   }
     // }
 
+
     return (
         <View style={styles.inputBar}>
-            <TextInput style={styles.textBox}
+            <TextInput style={{
+                ...styles.textBox
+                // , position: 'absolute',
+                // width: '100%',
+                // bottom: props.keyboardOffset
+            }}
                 ref={autogrowInput}
                 // multiline={true}
                 // defaultHeight={30}
@@ -33,4 +40,17 @@ export default InputBar = (props) => {
             </TouchableHighlight>
         </View>
     );
+
+
+
 }
+
+// const textBoxStyle = StyleSheet.create({
+//     position: 'absolute',
+//     width: '100%',
+//     bottom: this.state.keyboardOffset
+// })
+
+// const customeStyle = StyleSheet.flatten([
+//     styles.textBox,
+//   ]);

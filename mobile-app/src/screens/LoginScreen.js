@@ -21,7 +21,7 @@ export default LoginScreen = ({ navigation, route }) => {
         // })
 
         setTimeout(() => {
-            const user = JSON.parse('{ "userId": "ayman" }');
+            const user = JSON.parse('{"userId":"ayman","homeLocation":{"latitude":24.702262,"longitude":46.824737}, "radiusInMeter": 500 }');
             route.params?.getUser(user);
             // AsyncStorage.setItem('User', '{ "userId": "ayman",  }');
             // navigation.navigate('Home')

@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Image, AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -73,29 +73,24 @@ const RootStack = createStackNavigator();
 const MainStackScreen = () => {
   const [user, setUser] = useState(null);
 
-  const getUser = async (user) => {
-    // const user = await AsyncStorage.getItem('User');
-    // if (user) {
-    setUser(user);
-    // }
+  const getUserFromLogin = async (user) => {
+    if (user) {
+      await AsyncStorage.setItem('user', JSON.stringify(user));
+      setUser(user);
+    }
   }
 
-  // useEffect(() => {
-
-  //   getUser();
-
-  // }, [])
   return (
     <MainStack.Navigator initialRouteName={user === null ? "Login" : "Home"}
       screenOptions={{
         headerBackTitle: "come back",
-        headerRight: () => (
-          <Button
-            onPress={() => alert('This is a button!')}
-            title="Info"
-            color="#fff"
-          />
-        ),
+        // headerRight: () => (
+        //   <Button
+        //     onPress={() => alert('This is a button!')}
+        //     title="Info"
+        //     color="#fff"
+        //   />
+        // ),
         headerStyle: {
           backgroundColor: '#f4511e',
         },
@@ -105,7 +100,7 @@ const MainStackScreen = () => {
         },
       }}>
       {user === null ?
-        <MainStack.Screen name="Login" component={LoginScreen} initialParams={{ getUser }} />
+        <MainStack.Screen name="Login" component={LoginScreen} initialParams={{ getUser: getUserFromLogin }} />
         : <>
           <MainStack.Screen name="Home" component={HomeScreen} initialParams={{ user }} options={{
             title: 'My home',

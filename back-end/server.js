@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const cors = require('cors')
 const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
@@ -84,6 +85,7 @@ function connectChat(admin, user) {
     user.on("chat", (msg) => admin.emit("chat", msg));
 }
 
+app.use(cors());
 app.use(express.json());
 
 /*  ROUTES  */

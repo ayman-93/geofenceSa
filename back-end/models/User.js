@@ -14,7 +14,19 @@ const userSchema = new Schema({
         type: Date,
         required: true,
         default: new Date()
-    }
+    },
+    violations: [
+        {
+            type: {
+                type: String,
+                required: true
+            },
+            time: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ]
 });
 
 const User = mongoose.model("User", userSchema);

@@ -67,6 +67,19 @@ router.delete("/:id", getUser, async (req, res) => {
     }
 });
 
+// Add violation
+router.patch('/:id/violations', getUser, async (req,res) => {
+    try {
+        req.user.violations.push(req.body.violation);
+
+        await req.user.save();
+        return res.json(req.user.violations)
+        
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+})
+
 //getUser middleware
 async function getUser(req, res, next) {
     let user;
@@ -78,7 +91,7 @@ async function getUser(req, res, next) {
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }
-    res.user = user;
+    req.user = user;
     next();
 }
 

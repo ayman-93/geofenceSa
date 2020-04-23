@@ -86,8 +86,12 @@ function connectChat(admin, user) {
 
 app.use(express.json());
 
+/*  ROUTES  */
 const usersRouter = require("./routes/users");
 app.use("/users", usersRouter);
+
+const violationsRouter = require('./routes/violations');
+app.use('/violations', violationsRouter);
 
 http.listen(process.env.PORT, () =>
     console.log(`server has started at port ${process.env.PORT}`)

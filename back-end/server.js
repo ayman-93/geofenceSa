@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const cors = require('cors')
 const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
@@ -84,10 +85,15 @@ function connectChat(admin, user) {
     user.on("chat", (msg) => admin.emit("chat", msg));
 }
 
+app.use(cors());
 app.use(express.json());
 
+/*  ROUTES  */
 const usersRouter = require("./routes/users");
 app.use("/users", usersRouter);
+
+const violationsRouter = require('./routes/violations');
+app.use('/violations', violationsRouter);
 
 http.listen(process.env.PORT, () =>
     console.log(`server has started at port ${process.env.PORT}`)

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
+import ViolationsList from "./components/ViolationsList";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./components/Sidebar.css";
 
@@ -29,6 +30,11 @@ function App() {
                     </nav>
                     <Switch>
                         <Route exact path="/chat" component={Chat} />
+                        <Route
+                            exact
+                            path="/violations"
+                            component={ViolationsList}
+                        />
                     </Switch>
                 </div>
             </div>

@@ -5,7 +5,9 @@ const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
+const bodyParser = require('body-parser')
 
+app.use(bodyParser.json())
 const mongoose = require("mongoose");
 
 mongoose.connect(process.env.DATABASE_URL, {

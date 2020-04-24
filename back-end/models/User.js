@@ -10,10 +10,40 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    registerDate: {
-        type: Date,
-        required: true,
-        default: new Date()
+    nationalId: {
+        type: Number,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    assaignHostpital: {
+        type: String,
+        required: true
+    },
+    userTemperature: [
+        {
+            temperature: {
+                type: String,
+                require: true
+            },
+            recordDate: {
+                type: Date,
+                required: true,
+                default: new Date()
+            }
+        }
+    ],
+    homeLocation: {
+        lat: {
+            type: String,
+            require: true
+        },
+        lng: {
+            type: String,
+            require: true
+        }
     },
     violations: [
         {
@@ -26,7 +56,12 @@ const userSchema = new Schema({
                 default: Date.now
             }
         }
-    ]
+    ],
+    registerDate: {
+        type: Date,
+        required: true,
+        default: new Date()
+    },
 });
 
 const User = mongoose.model("User", userSchema);

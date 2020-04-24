@@ -1,6 +1,6 @@
 export default CountDistance = (firstPoint, secondPoint, unit) => {
     const { latitude: lat1, longitude: lon1 } = firstPoint;
-    const { latitude: lat2, longitude: lon2 } = secondPoint;
+    const { lat: lat2, lng: lon2 } = secondPoint;
     if ((lat1 == lat2) && (lon1 == lon2)) {
         return 0;
     }

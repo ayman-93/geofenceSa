@@ -23,7 +23,8 @@
     "socket.io-client": "^2.1.1",
     "expo-permissions": "~8.0.0",
     "expo-location": "~8.0.0",
-    "expo-task-manager": "~8.0.0"
+    "expo-task-manager": "~8.0.0",
+    "react-native-svg": "9.13.3"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.1.0",

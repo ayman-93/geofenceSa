@@ -13,7 +13,7 @@ import CountDistance from '../utils/CountDistance';
 
 
 export default HomeScreen = ({ navigation, route }) => {
-    const [count, setCount] = useState(0);
+    const [distancet, setDistance] = useState(0);
     const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
 
 
@@ -32,6 +32,8 @@ export default HomeScreen = ({ navigation, route }) => {
     // }, [navigation, setCount]);
 
     useEffect(() => {
+        locationService.subscribersDistance(setDistance)
+
         locationService.subscribe(setLocation)
         const _getLocationPermission = async () => {
 
@@ -64,13 +66,14 @@ export default HomeScreen = ({ navigation, route }) => {
             <Text>User: {route.params?.user.userId}</Text>
             {location.latitude !== 0 ?
                 <Text>User Location: {JSON.stringify(location)}</Text> : null}
+            <Text>Distance from home: {distancet}</Text>
             <Button
                 title="Go to Details"
                 onPress={() => {
                     /* 1. Navigate to the Details route with params */
                     navigation.navigate('Details', {
                         itemId: 86,
-                        homeScreenCounter: count,
+                        homeScreenCounter: 1,
                     });
                 }}
             />
@@ -98,12 +101,15 @@ TaskManager.defineTask("background-location-task", async ({ data, error }) => {
     let user = await AsyncStorage.getItem('user');
     user = JSON.parse(user);
     console.log("user:: ", user);
+    console.log("user.homeLocation:: ", user.homeLocation);
 
     const isUserInHome = (newLocation) => {
 
+        console.log("user.homeLocation ", user.homeLocation);
 
         const Distance = CountDistance(newLocation, user.homeLocation, "M")
         console.log("Distance ", Distance);
+        locationService.setDistance(Distance)
 
         if (Distance > user.radiusInMeter) {
             // send vaiolation.

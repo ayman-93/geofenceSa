@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, Image, AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -80,6 +80,15 @@ const MainStackScreen = () => {
     }
   }
 
+  useEffect(() => {
+    const getUserFromStorage = async () => {
+      const user = await AsyncStorage.getItem('user');
+      if (user) {
+        setUser(user)
+      }
+    }
+  }, [user])
+
   return (
     <MainStack.Navigator initialRouteName={user === null ? "Login" : "Home"}
       screenOptions={{
@@ -92,7 +101,7 @@ const MainStackScreen = () => {
         //   />
         // ),
         headerStyle: {
-          backgroundColor: '#f4511e',
+          backgroundColor: '#2d2d2d',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -105,7 +114,7 @@ const MainStackScreen = () => {
           <MainStack.Screen name="Home" component={HomeScreen} initialParams={{ user }} options={{
             title: 'My home',
             headerStyle: {
-              backgroundColor: '#f4511e',
+              // backgroundColor: '#f4511e',
             },
             headerTintColor: '#fff',
             headerTitleStyle: {

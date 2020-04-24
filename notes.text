@@ -17,7 +17,8 @@ user:
 #3- register date.
 #4- assaign hostpital
 #5- user body temperature.
-#6- location [{ lng, ltd },{ lng, ltd },{ lng, ltd },{ lng, ltd }].
+#6- location.
+#7- viaolation [{ type: , date}]
 
 userTemperature:
 #1- userId

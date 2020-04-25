@@ -6,6 +6,8 @@ import Chat from "./components/Chat";
 import ViolationsList from "./components/ViolationsList";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./components/Sidebar.css";
+import InstructionsList from "./components/instructions/InstructionsList";
+import InstructionForm from "./components/instructions/InstructionForm";
 
 function App() {
     const [active, toggleActive] = useState(false);
@@ -34,6 +36,21 @@ function App() {
                             exact
                             path="/violations"
                             component={ViolationsList}
+                        />
+                        <Route
+                            exact
+                            path="/instructions"
+                            component={InstructionsList}
+                        />
+                        <Route
+                            exact
+                            path="/instructions/edit/:id"
+                            component={InstructionForm}
+                        />
+                        <Route
+                            exact
+                            path="/instructions/create"
+                            component={InstructionForm}
                         />
                     </Switch>
                 </div>

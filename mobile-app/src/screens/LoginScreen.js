@@ -23,13 +23,12 @@ export default LoginScreen = ({ navigation, route }) => {
     const [nationalId, setnationalId] = useState("");
     const [password, setPassword] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
+
     const handleSubmit = async () => {
 
-        await postData('http://192.168.1.71:3001/users/login', { nationalId, password })
+        await postData('http://192.168.0.155:3001/users/login', { nationalId, password })
             .then(async (data) => {
-                console.log("data", data);
                 if (data.succeed) {
-
                     try {
                         console.log("user set to Storage");
                         await AsyncStorage.setItem('User', JSON.stringify(data));
@@ -41,18 +40,11 @@ export default LoginScreen = ({ navigation, route }) => {
                     setErrorMsg("wrong credentials")
                 }
             })
-
-        // setTimeout(() => {
-        //     const user = JSON.parse('{"nationalId":"ayman","homeLocation":{"latitude":24.702262,"longitude":46.824737}, "radiusInMeter": 500 }');
-        //     route.params?.getUser(user);
-        //     // AsyncStorage.setItem('User', '{ "nationalId": "ayman",  }');
-        //     // navigation.navigate('Home')
-        // }, 1000)
     }
     return (
         <View style={styles.container}>
             <View style={styles.logo}>
-                <Image source={require('../assets/images/siajlabs-logo-2-AR.png')} />
+                <Image source={require('../assets/images/siajlabs-logo-2-AR.png')} style={styles.imgLogo} />
             </View>
             <View style={styles.inputView} >
                 <TextInput
@@ -86,21 +78,16 @@ export default LoginScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#2d2d2d',
         alignItems: 'center',
         justifyContent: 'center',
     },
     logo: {
-        // fontWeight: "bold",
-        // fontSize: 50,
-        // color: "#fb5b5a",
-        width: "100%",
-        alignItems: 'center',
-        marginBottom: 40
+        marginBottom: 50
     },
     inputView: {
         width: "80%",
-        backgroundColor: "#09d189",
+        backgroundColor: "#808080",
         borderRadius: 25,
         height: 50,
         marginBottom: 20,
@@ -112,12 +99,12 @@ const styles = StyleSheet.create({
         color: "white"
     },
     forgot: {
-        color: "#09d189",
+        color: "#fff",
         fontSize: 11
     },
     loginBtn: {
         width: "80%",
-        backgroundColor: "#9f2fff",
+        backgroundColor: "#fff",
         borderRadius: 25,
         height: 50,
         alignItems: "center",
@@ -126,6 +113,11 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     loginText: {
-        color: "white"
+        color: "#2d2d2d"
+    },
+    imgLogo: {
+        resizeMode: "contain",
+        height: 200,
+        width: 200
     }
 });

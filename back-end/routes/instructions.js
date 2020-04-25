@@ -33,4 +33,21 @@ router.get("/", async (req, res) => {
     }
 });
 
+// Delete Instruction by id
+router.delete("/:id", async (req, res) => {
+    try {
+        const instruction = await Instrcution.findById(req.params.id);
+
+        if (!instruction) {
+            return res.status(404).json({ message: "Instruction not found" });
+        }
+
+        await instruction.remove();
+
+        res.json({ message: "Instrcution removed successfully" });
+    } catch (err) {
+        res.status(500).send("Server Error");
+    }
+});
+
 module.exports = router;

@@ -8,16 +8,44 @@ import locationService from '../utils/locationServeis';
 import CountDistance from '../utils/CountDistance';
 
 
+const patchData = async (url = '', data = {}) => {
+    console.log("dataffff ", data);
 
+    // Default options are marked with *
+    const response = await fetch(url, {
+        method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+}
+
+const addVaiolation = (userId, violationType) => {
+    patchData(`http://192.168.0.155:3001/users/${userId}/violations`, { "violations": { type: violationType } })
+        .then((res) => res.json())
+        .then((data) => console.log("violation added data::", data))
+}
 
 
 
 export default HomeScreen = ({ navigation, route }) => {
     const [distancet, setDistance] = useState(0);
     const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
+    const [user, setUser] = useState({});
+    const [_notificationSent, setNotificationSent] = useState();
 
-
-
+    const getUser = async () => {
+        let userr = await AsyncStorage.getItem('user');
+        userr = JSON.parse(userr);
+        setUser(userr);
+    }
 
 
     // useLayoutEffect(() => {
@@ -32,9 +60,10 @@ export default HomeScreen = ({ navigation, route }) => {
     // }, [navigation, setCount]);
 
     useEffect(() => {
-        locationService.subscribersDistance(setDistance)
-
-        locationService.subscribe(setLocation)
+        getUser()
+        locationService.subscribersDistance(setDistance);
+        locationService.subNotificationSent(setNotificationSent);
+        locationService.subscribe(setLocation);
         const _getLocationPermission = async () => {
 
             // ask for permissions.
@@ -44,6 +73,10 @@ export default HomeScreen = ({ navigation, route }) => {
             )
 
             if (status !== 'granted') {
+                // send violation.
+                // const violation = { type: "Location not allowed" }
+                // send vaiolation.
+                addVaiolation(user._id, "Location not allowed")
                 console.log("Location Permission Denied.");
                 setLocation({ error: "Location Permission Denied." });
             };
@@ -63,7 +96,7 @@ export default HomeScreen = ({ navigation, route }) => {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>Home Screen</Text>
-            <Text>User: {route.params?.user.userId}</Text>
+            <Text>User Id: {route.params?.user._id}</Text>
             {location.latitude !== 0 ?
                 <Text>User Location: {JSON.stringify(location)}</Text> : null}
             <Text>Distance from home: {distancet}</Text>
@@ -100,22 +133,25 @@ export default HomeScreen = ({ navigation, route }) => {
 TaskManager.defineTask("background-location-task", async ({ data, error }) => {
     let user = await AsyncStorage.getItem('user');
     user = JSON.parse(user);
-    console.log("user:: ", user);
-    console.log("user.homeLocation:: ", user.homeLocation);
 
     const isUserInHome = (newLocation) => {
-
-        console.log("user.homeLocation ", user.homeLocation);
-
         const Distance = CountDistance(newLocation, user.homeLocation, "M")
         console.log("Distance ", Distance);
         locationService.setDistance(Distance)
 
         if (Distance > user.radiusInMeter) {
-            // send vaiolation.
+            if (!locationService.getNotificationSent()) {
+                // send vaiolation.
+                addVaiolation(user._id, "Out of boundry")
+                locationService.setNotificationSent(true);
+                console.log("violation sent");
+            }
+            console.log("locationService.getNotificationSent ", locationService.getNotificationSent());
+
             console.log("user is out of his home");
         } else {
             console.log("User in home");
+            locationService.setNotificationSent(false);
         }
     }
 

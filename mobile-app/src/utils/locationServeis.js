@@ -3,9 +3,12 @@ const LocationService = () => {
     let location = {
         latitude: 0,
         longitude: 0
-    }
-    let subscribersDistance = []
-    let distance = 0
+    };
+
+    let subscribersDistance = [];
+    let distance = 0;
+    let subNotificationSent = [];
+    let notificationSent = false;
 
     return {
         subscribe: (sub) => subscribers.push(sub),
@@ -20,7 +23,14 @@ const LocationService = () => {
         setDistance: (newDistance) => {
             distance = newDistance
             subscribersDistance.forEach((setter => setter(distance)))
-        }
+        },
+        subNotificationSent: (setNotificationSent) => subNotificationSent.push(setNotificationSent),
+        setNotificationSent: (NotificationSentt) => {
+            notificationSent = NotificationSentt;
+            subNotificationSent.forEach(setNotificationSent => setNotificationSent(notificationSent))
+        },
+        unsubscribeSetNotificationSent: (setNotificationSentt) => subNotificationSent = subNotificationSent.filter((setNotificationSent) => setNotificationSent !== setNotificationSentt),
+        getNotificationSent: () => notificationSent
     }
 }
 

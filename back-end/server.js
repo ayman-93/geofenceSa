@@ -97,6 +97,9 @@ app.use("/users", usersRouter);
 const violationsRouter = require('./routes/violations');
 app.use('/violations', violationsRouter);
 
+const instructionsRouter = require('./routes/instructions');
+app.use('/instructions', instructionsRouter);
+
 http.listen(process.env.PORT, () =>
     console.log(`server has started at port ${process.env.PORT}`)
 );

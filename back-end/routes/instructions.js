@@ -16,4 +16,21 @@ router.post("/", async (req, res) => {
     }
 });
 
+// Get all Instruction
+router.get("/", async (req, res) => {
+    try {
+        const instructions = await Instrcution.find();
+
+        if (instructions.length === 0) {
+            return res
+                .status(404)
+                .json({ message: "There are no instructions." });
+        }
+
+        res.status(200).json({ instructions });
+    } catch (err) {
+        res.status(500).send("Server Error");
+    }
+});
+
 module.exports = router;

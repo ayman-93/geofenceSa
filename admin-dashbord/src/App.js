@@ -4,12 +4,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import ViolationsList from "./components/ViolationsList";
+import UserMangemnt from './components/UserMangemnt';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./components/Sidebar.css";
-
+import AddUser from "./components/AddUser";
+import EditUser from "./components/EditUser";
+ 
 function App() {
     const [active, toggleActive] = useState(false);
-
+ 
     return (
         <Router>
             <div className="wrapper d-flex align-items-stretch">
@@ -30,16 +33,19 @@ function App() {
                     </nav>
                     <Switch>
                         <Route exact path="/chat" component={Chat} />
+                        <Route exact path="/userMangment" component={UserMangemnt} />
                         <Route
                             exact
                             path="/violations"
                             component={ViolationsList}
                         />
+                        <Route exact path="/userMangment/addUser" component={AddUser} />
+                        <Route exact path="/userMangment/editUser/:id" component={EditUser} />
                     </Switch>
                 </div>
             </div>
         </Router>
     );
 }
-
+ 
 export default App;

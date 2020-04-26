@@ -1,12 +1,15 @@
 import React from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
-
+ 
 const Sidebar = ({ active }) => {
     return (
         <nav id="sidebar" className={active ? "active" : ""}>
             <div className="p-4 pt-5">
                 <ul className="list-unstyled components mb-5">
+                    <li>
+                        <Link to="/userMangment">User Mangment</Link>
+                    </li>
                     <li>
                         <Link to="/chat">Chat</Link>
                     </li>
@@ -17,7 +20,7 @@ const Sidebar = ({ active }) => {
                         <Link to="/">Contact</Link>
                     </li>
                 </ul>
-
+ 
                 <div className="footer">
                     <p>@siajlab</p>
                 </div>
@@ -25,5 +28,5 @@ const Sidebar = ({ active }) => {
         </nav>
     );
 };
-
+ 
 export default Sidebar;

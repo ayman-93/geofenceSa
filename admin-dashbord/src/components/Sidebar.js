@@ -8,7 +8,7 @@ const Sidebar = ({ active }) => {
             <div className="p-4 pt-5">
                 <ul className="list-unstyled components mb-5">
                     <li>
-                        <Link to="/userMangment">User Mangment</Link>
+                        <Link to="/UserManagement">User Mangment</Link>
                     </li>
                     <li>
                         <Link to="/chat">Chat</Link>

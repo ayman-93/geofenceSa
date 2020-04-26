@@ -33,6 +33,40 @@ router.get("/", async (req, res) => {
     }
 });
 
+// Get instruction by id
+router.get("/:id", async (req, res) => {
+    try {
+        const instruction = await Instrcution.findById(req.params.id);
+
+        if (!instruction) {
+            return res.status(404).json({ message: "Instruction Not found" });
+        }
+
+        res.status(200).json({ instruction });
+    } catch (err) {
+        res.status(500).send("Server Error");
+    }
+});
+
+// Updaet an Instruction
+router.patch("/:id", async (req, res) => {
+    try {
+        const instruction = await Instrcution.findById(req.params.id);
+
+        if (!instruction) {
+            return res.status(404).json({ message: "Instruction Not found" });
+        }
+
+        instruction.text = req.body.instruction.text;
+
+        await instruction.save();
+
+        res.sendStatus(204);
+    } catch (err) {
+        res.status(500).send("Server Error");
+    }
+});
+
 // Delete Instruction by id
 router.delete("/:id", async (req, res) => {
     try {
@@ -44,7 +78,7 @@ router.delete("/:id", async (req, res) => {
 
         await instruction.remove();
 
-        res.json({ message: "Instrcution removed successfully" });
+        res.status(202).json({ message: "Instrcution removed successfully" });
     } catch (err) {
         res.status(500).send("Server Error");
     }

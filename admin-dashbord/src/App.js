@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 // import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./components/Sidebar.css";
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import ViolationsList from "./components/ViolationsList";
 import UserManagement from './components/UserManagement';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./components/Sidebar.css";
+import InstructionsList from "./components/instructions/InstructionsList";
+import InstructionForm from "./components/instructions/InstructionForm";
+
 import AddUser from "./components/AddUser";
 import EditUser from "./components/EditUser";
  
@@ -38,6 +42,21 @@ function App() {
                             exact
                             path="/violations"
                             component={ViolationsList}
+                        />
+                        <Route
+                            exact
+                            path="/instructions"
+                            component={InstructionsList}
+                        />
+                        <Route
+                            exact
+                            path="/instructions/edit/:id"
+                            component={InstructionForm}
+                        />
+                        <Route
+                            exact
+                            path="/instructions/create"
+                            component={InstructionForm}
                         />
                         <Route exact path="/UserManagement/addUser" component={AddUser} />
                         <Route exact path="/UserManagement/editUser/:id" component={EditUser} />

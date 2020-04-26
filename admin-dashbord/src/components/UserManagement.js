@@ -6,7 +6,7 @@ import ReactTable from '../utils/ReactTable'
 import { EditIcon, DeleteIcon, AddIcon } from '../style/icons.js'
  
  
-const userManagement = ({ history }) => {
+const UserManagement = ({ history }) => {
     const [tableData, settableData] = useState([]);
     const [loading, setLoading] = useState(true);
  
@@ -56,8 +56,8 @@ const userManagement = ({ history }) => {
         <div style={{ display: 'flex', flexDirection: "column" }}>
  
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <h1>User Mangemnt</h1>
-                <button className='btn' onClick={() => history.push('/userMangment/addUser')}><AddIcon /></button>
+                <h1>User Mangemnt </h1>
+                <button className='btn' onClick={() => history.push('/UserManagement/addUser')}><AddIcon /></button>
             </div>
             <ReactTable
                 loading={loading}
@@ -71,4 +71,4 @@ const userManagement = ({ history }) => {
     )
 }
  
-export default userManagement;
+export default UserManagement;

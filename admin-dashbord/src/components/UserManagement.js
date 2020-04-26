@@ -38,7 +38,7 @@ const UserManagement = ({ history }) => {
             accessor: "_id",
             Cell: (row) => {
                 return <>
-                    <Link to={`userMangment/editUser/${row.original._id}`} className='btn icon mr-2' ><EditIcon /></Link>
+                    <Link to={`userManagement/editUser/${row.original._id}`} className='btn icon mr-2' ><EditIcon /></Link>
                     <button className='btn' onClick={() => deleteUser(row.original._id)}><DeleteIcon /></button>
                 </>
             }
@@ -57,7 +57,7 @@ const UserManagement = ({ history }) => {
  
             <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h1>User Mangemnt </h1>
-                <button className='btn' onClick={() => history.push('/UserManagement/addUser')}><AddIcon /></button>
+                <button className='btn' onClick={() => history.push('/userManagement/addUser')}><AddIcon /></button>
             </div>
             <ReactTable
                 loading={loading}

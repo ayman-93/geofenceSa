@@ -37,7 +37,7 @@ function App() {
                     </nav>
                     <Switch>
                         <Route exact path="/chat" component={Chat} />
-                        <Route exact path="/UserManagement" component={UserManagement} />
+                        <Route exact path="/userManagement" component={UserManagement} />
                         <Route
                             exact
                             path="/violations"
@@ -58,8 +58,8 @@ function App() {
                             path="/instructions/create"
                             component={InstructionForm}
                         />
-                        <Route exact path="/UserManagement/addUser" component={AddUser} />
-                        <Route exact path="/UserManagement/editUser/:id" component={EditUser} />
+                        <Route exact path="/userManagement/addUser" component={AddUser} />
+                        <Route exact path="/userManagement/editUser/:id" component={EditUser} />
                     </Switch>
                 </div>
             </div>

@@ -1,17 +1,22 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 // import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./components/Sidebar.css";
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import ViolationsList from "./components/ViolationsList";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./components/Sidebar.css";
+import UserManagement from './components/UserManagement';
 import InstructionsList from "./components/instructions/InstructionsList";
 import InstructionForm from "./components/instructions/InstructionForm";
 
+import AddUser from "./components/AddUser";
+import EditUser from "./components/EditUser";
+ 
 function App() {
     const [active, toggleActive] = useState(false);
-
+ 
     return (
         <Router>
             <div className="wrapper d-flex align-items-stretch">
@@ -32,6 +37,7 @@ function App() {
                     </nav>
                     <Switch>
                         <Route exact path="/chat" component={Chat} />
+                        <Route exact path="/UserManagement" component={UserManagement} />
                         <Route
                             exact
                             path="/violations"
@@ -52,11 +58,13 @@ function App() {
                             path="/instructions/create"
                             component={InstructionForm}
                         />
+                        <Route exact path="/UserManagement/addUser" component={AddUser} />
+                        <Route exact path="/UserManagement/editUser/:id" component={EditUser} />
                     </Switch>
                 </div>
             </div>
         </Router>
     );
 }
-
+ 
 export default App;

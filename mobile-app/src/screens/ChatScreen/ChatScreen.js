@@ -1,17 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, ScrollView, Keyboard, Button } from "react-native";
+import { View, ScrollView, Keyboard, YellowBox } from "react-native";
 
 import socket from '../../utils/socket'
 import MessageBubble from './components/MessageBubble';
 import InputBar from './components/InputBar';
 import styles from './style';
 
+YellowBox.ignoreWarnings([
+    'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
+])
 
 export default ChatView = () => {
     const [messages, setMessages] = useState([]);
     const [inputBarText, setInputBarText] = useState("");
     const [keyboardOffset, setKeyboardOffset] = useState();
     // const scrollViewControl = useRef(null);
+
+
 
     useEffect(() => {
         socket.emit("startConversation", { userID: "userID", userSocketId: socket.id });

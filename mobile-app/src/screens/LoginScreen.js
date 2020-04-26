@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Image, KeyboardAvoidingView } from 'react-native';
 
 async function postData(url = '', data = {}) {
     // Default options are marked with *
@@ -26,7 +26,7 @@ export default LoginScreen = ({ navigation, route }) => {
 
     const handleSubmit = async () => {
 
-        await postData('http://192.168.0.155:3001/users/login', { nationalId, password })
+        await postData('http://192.168.1.71:3001/users/login', { nationalId, password })
             .then(async (data) => {
                 if (data.succeed) {
                     try {
@@ -42,7 +42,10 @@ export default LoginScreen = ({ navigation, route }) => {
             })
     }
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+            style={styles.container}
+            behavior="padding"
+        >
             <View style={styles.logo}>
                 <Image source={require('../assets/images/siajlabs-logo-2-AR.png')} style={styles.imgLogo} />
             </View>
@@ -69,9 +72,7 @@ export default LoginScreen = ({ navigation, route }) => {
             <TouchableOpacity style={styles.loginBtn} onPress={handleSubmit}>
                 <Text style={styles.loginText}>LOGIN</Text>
             </TouchableOpacity>
-
-
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 

@@ -62,6 +62,10 @@ const userSchema = new Schema({
         required: true,
         default: new Date()
     },
+    radiusInMeter: {
+        type: Number,
+        required: true
+    }
 });
 
 const User = mongoose.model("User", userSchema);

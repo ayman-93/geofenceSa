@@ -25,12 +25,6 @@ router.post("/login", async (req, res) => {
                 res.json({ succeed: false, user: "user not found" })
             }
         })
-    //     try {
-    //     const updatedUser = await res.user.save();
-    //     res.json(updatedUser);
-    // } catch (err) {
-    //     res.status(400).json({ message: err.message });
-    // }
 });
 
 //Get All
@@ -50,8 +44,8 @@ router.get("/:id", getUser, (req, res) => {
 
 //Create One
 router.post("/", async (req, res) => {
-    const { firstname, lastname, nationalId, assaignHostpital, password } = req.body;
-    const user = new User({ firstname, lastname, nationalId, assaignHostpital, password });
+    // const { firstname, lastname, nationalId, assaignHostpital, password, radiusInMeter, } = req.body;
+    const user = new User(req.body);
     try {
         const newUser = await user.save();
         res.status(201).json({ newUser });
@@ -80,6 +74,7 @@ router.patch("/:id", getUser, async (req, res) => {
 router.put("/:id", getUser, async (req, res) => {
     try {
         const updatedUser = await res.user.set(req.body);
+        res.user.save()
         res.json(updatedUser);
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -99,11 +94,22 @@ router.delete("/:id", getUser, async (req, res) => {
 // Add violation
 router.patch('/:id/violations', getUser, async (req, res) => {
     try {
-        req.user.violations.push(req.body.violation);
-
-        await req.user.save();
+        res.user.violations.push(req.body.violations);
+        await res.user.save();
         return res.json(req.user.violations)
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+})
 
+// Delete Violation by id.
+router.delete("/:id/:violationId", getUser, async (req, res) => {
+    console.log("req.params.violationId ", req.params.violationId);
+    try {
+        res.user.violations = res.user.violations.filter(violation => violation._id != req.params.violationId)
+
+        res.user.save()
+        return res.json(res.user)
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }

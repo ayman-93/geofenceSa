@@ -17,7 +17,7 @@ const Sidebar = ({ active }) => {
                         <Link to="/violations">Violations</Link>
                     </li>
                     <li>
-                        <Link to="/">Contact</Link>
+                        <Link to="/instructions">Instructions</Link>
                     </li>
                 </ul>
  

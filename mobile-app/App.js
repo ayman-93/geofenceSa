@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import ChatScreen from './src/screens/ChatScreen/ChatScreen';
+import InstructionsSceen from './src/screens/InstructionsSceen';
 
 
 
@@ -113,9 +114,7 @@ const MainStackScreen = () => {
         : <>
           <MainStack.Screen name="Home" component={HomeScreen} initialParams={{ user }} options={{
             title: 'My home',
-            headerStyle: {
-              // backgroundColor: '#f4511e',
-            },
+            headerShown: false,
             headerTintColor: '#fff',
             headerTitleStyle: {
               fontWeight: 'bold'
@@ -123,6 +122,7 @@ const MainStackScreen = () => {
           }} />
           <MainStack.Screen options={({ route }) => ({ title: route.params.name })} name="Details" component={DetailsScreen} />
           <MainStack.Screen name="Chat" component={ChatScreen} />
+          <MainStack.Screen name="InstructionsSceen" component={InstructionsSceen} />
         </>}
     </MainStack.Navigator >
   )

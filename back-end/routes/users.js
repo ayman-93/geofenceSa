@@ -120,7 +120,7 @@ router.patch('/:id/temperature', getUser, async (req, res) => {
     try {
         res.user.userTemperature.push(req.body.userTemperature);
         await res.user.save();
-        return res.json(req.user.userTemperature)
+        return res.json(res.user.userTemperature)
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router";
- 
+
 import axios from '../utils/axios'
 import ReactTable from '../utils/ReactTable'
 import { DeleteIcon } from '../style/icons.js'
- 
- 
+
+
 const EditUser = (props) => {
     const { id: userId } = useParams();
     const [user, setUser] = useState({
@@ -20,12 +20,12 @@ const EditUser = (props) => {
         violations: [],
         _id: ""
     })
- 
- 
+
+
     const hanleChange = (event) => {
         console.log(event.target.id);
         let { id, value } = event.target
- 
+
         if (id.includes(".")) {
             // for objects
             id = id.split('.')
@@ -42,13 +42,13 @@ const EditUser = (props) => {
             })
         }
     }
- 
+
     const removeViolation = (violationId) => {
         console.log("violationId ", violationId);
- 
+
         axios.delete(`users/${userId}/${violationId}`).then(({ data: user }) => setUser(user)).catch(err => console.log(err))
     }
- 
+
     const submit = () => {
         axios.put(`users/${userId}`, user).then(({ data }) => {
             console.log("dataaaa", data);
@@ -56,11 +56,11 @@ const EditUser = (props) => {
             props.history.goBack()
         }).catch(e => console.log(e))
     }
- 
- 
+
+
     useEffect(() => {
         console.log(userId);
- 
+
         axios.get(`users/${userId}`)
             .then(({ data: user }) => setUser(user))
             .catch(err => console.log(err))
@@ -101,7 +101,7 @@ const EditUser = (props) => {
                             accessor: "temperature"
                         }, {
                             Header: "Time",
-                            accessor: "time"
+                            accessor: "recordDate"
                         }]}
                     />
                     {/* <input type="text" className="form-control" id="password" onChange={hanleChange} value={user.password} placeholder="Last Name" /> */}
@@ -130,8 +130,8 @@ const EditUser = (props) => {
                     Cell: (row) => <button className='btn icon' onClick={() => removeViolation(row.original._id)}><DeleteIcon /></button>
                 }]} />
             </div>
- 
- 
+
+
             {/*                
                 <div className="form-row">
                     <div className="form-group col-md-6">
@@ -166,5 +166,5 @@ const EditUser = (props) => {
         </div>
     )
 }
- 
+
 export default EditUser;

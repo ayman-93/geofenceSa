@@ -18,7 +18,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "buildd": "react-scripts build",
+    "build": "PUBLIC_URL=/siaj-dashboard react-scripts build && cp -R build path_to_html/siaj-dashboard",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

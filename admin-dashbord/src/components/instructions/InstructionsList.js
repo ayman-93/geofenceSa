@@ -7,7 +7,7 @@ const InstructionsList = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get("http://localhost:3001/instructions");
+            const res = await axios.get("http://18.184.129.69/siaj-api/instructions");
             setInstructions(res.data.instructions);
         } catch (err) {
             console.log(err);
@@ -17,7 +17,7 @@ const InstructionsList = () => {
     const remove = async (e, id) => {
         try {
             const res = await axios.delete(
-                `http://localhost:3001/instructions/${id}`
+                `http://18.184.129.69/siaj-api/instructions/${id}`
             );
 
             if (res.status === 202) {

@@ -1,11 +1,11 @@
 import axios from "axios";
- 
- 
+
+
 const instance = axios.create({
-    baseURL: "http://localhost:3001/",
+    baseURL: "http://18.184.129.69/siaj-api/",
     responseType: "json"
 });
- 
+
 // Add a response interceptor
 instance.interceptors.response.use(
     (response) => {
@@ -20,5 +20,5 @@ instance.interceptors.response.use(
         return Promise.reject(error);
     }
 );
- 
+
 export default instance;

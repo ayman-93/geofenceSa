@@ -12,7 +12,7 @@ const InstructionForm = () => {
     const fetchInstruction = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:3001/instructions/${id}`
+                `http://18.184.129.69/siaj-api/instructions/${id}`
             );
 
             if (res.status === 200) {
@@ -42,7 +42,7 @@ const InstructionForm = () => {
         try {
             if (instruction._id) {
                 const res = await axios.patch(
-                    `http://localhost:3001/instructions/${instruction._id}`,
+                    `http://18.184.129.69/siaj-api/instructions/${instruction._id}`,
                     {
                         instruction
                     }
@@ -53,7 +53,7 @@ const InstructionForm = () => {
                 }
             } else {
                 const res = await axios.post(
-                    "http://localhost:3001/instructions",
+                    "http://18.184.129.69/siaj-api/instructions",
                     { instruction }
                 );
 

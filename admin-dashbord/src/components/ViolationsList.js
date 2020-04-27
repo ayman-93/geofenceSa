@@ -8,7 +8,7 @@ const ViolationsList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get("http://localhost:3001/violations");
+                const res = await axios.get("http://18.184.129.69/siaj-api/violations");
 
                 setViolations(res.data);
             } catch (error) {

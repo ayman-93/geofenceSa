@@ -93,7 +93,8 @@ const MainStackScreen = () => {
   return (
     <MainStack.Navigator initialRouteName={user === null ? "Login" : "Home"}
       screenOptions={{
-        headerBackTitle: "come back",
+
+        headerShown: false,
         // headerRight: () => (
         //   <Button
         //     onPress={() => alert('This is a button!')}
@@ -105,19 +106,26 @@ const MainStackScreen = () => {
           backgroundColor: '#2d2d2d',
         },
         headerTintColor: '#fff',
+        noBorder: true,
         headerTitleStyle: {
           fontWeight: 'bold',
         },
       }}>
       {user === null ?
-        <MainStack.Screen name="Login" component={LoginScreen} initialParams={{ getUser: getUserFromLogin }} />
+        <MainStack.Screen name="Login" component={LoginScreen} initialParams={{ getUser: getUserFromLogin }} options={{
+          headerShown: false
+        }} />
         : <>
           <MainStack.Screen name="Home" component={HomeScreen} initialParams={{ user }} options={{
-            title: 'My home',
-            headerShown: false,
-            headerTintColor: '#fff',
+            title: 'Home',
+            // headerShown: false,
+            headerStyle: {
+              backgroundColor: '#EAF7F2',
+            },
+            headerTintColor: '#09D189',
+            headerLayoutPreset: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'normal'
             }
           }} />
           <MainStack.Screen options={({ route }) => ({ title: route.params.name })} name="Details" component={DetailsScreen} />

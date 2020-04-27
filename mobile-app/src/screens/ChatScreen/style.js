@@ -24,22 +24,27 @@ export default styles = StyleSheet.create({
     },
 
     textBox: {
-        borderRadius: 5,
-        borderWidth: 1,
-        borderColor: 'gray',
+        borderRadius: 25,
+        // borderColor: 'gray',
+        backgroundColor: '#fff',
         flex: 1,
         fontSize: 16,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        height: 50,
+        marginBottom: 10
     },
 
     sendButton: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingLeft: 15,
-        marginLeft: 5,
-        paddingRight: 15,
-        borderRadius: 5,
-        backgroundColor: '#66db30'
+        position: "absolute",
+        top: 15,
+        right: 15
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // paddingLeft: 15,
+        // marginLeft: 5,
+        // paddingRight: 15,
+        // borderRadius: 5,
+        // backgroundColor: '#66db30'
     },
 
     //MessageBubble
@@ -51,8 +56,9 @@ export default styles = StyleSheet.create({
         marginLeft: 10,
         paddingHorizontal: 10,
         paddingVertical: 5,
-        flexDirection: 'row',
-        flex: 1
+        // flexDirection: 'row',
+        // flex: 1,
+        width: "70%"
     },
 
     messageBubbleLeft: {
@@ -68,6 +74,23 @@ export default styles = StyleSheet.create({
     },
 
     messageBubbleTextRight: {
+        right: 0,
         color: 'white'
     },
+    container: {
+        marginTop: 30,
+        flex: 1,
+        flexDirection: "column",
+        alignItems: "center"
+    },
+    title: {
+        fontSize: 25,
+        fontWeight: "bold",
+        color: "#09D189"
+    },
+    screenIcon: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: "90%"
+    }
 })

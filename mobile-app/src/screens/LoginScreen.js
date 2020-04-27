@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Image, KeyboardAvoidingView } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+
+import EnLogo from '../assets/images/siajlabs-logo-EN.svg';
+import Surface from '../assets/images/surface1.svg';
 
 async function postData(url = '', data = {}) {
     // Default options are marked with *
@@ -26,7 +30,7 @@ export default LoginScreen = ({ navigation, route }) => {
 
     const handleSubmit = async () => {
 
-        await postData('http://192.168.1.71:3001/users/login', { nationalId, password })
+        await postData('http://18.184.129.69/siaj-api/users/login', { nationalId, password })
             .then(async (data) => {
                 if (data.succeed) {
                     try {
@@ -34,6 +38,8 @@ export default LoginScreen = ({ navigation, route }) => {
                         await AsyncStorage.setItem('User', JSON.stringify(data));
                     } catch (error) {
                         //  Error saving data
+                        console.log("login err", error);
+
                     }
                     route.params?.getUser(data.user);
                 } else {
@@ -43,52 +49,90 @@ export default LoginScreen = ({ navigation, route }) => {
     }
     return (
         <KeyboardAvoidingView
-            style={styles.container}
+            style={styles.screen}
             behavior="padding"
         >
-            <View style={styles.logo}>
-                <Image source={require('../assets/images/siajlabs-logo-2-AR.png')} style={styles.imgLogo} />
+            <View style={styles.header}>
+                <EnLogo width={170} height={170} />
+                <Text style={styles.headerText}>Welcome Back</Text>
             </View>
-            <View style={styles.inputView} >
-                <TextInput
-                    style={styles.inputText}
-                    placeholder="User Id..."
-                    placeholderTextColor="#fff"
-                    onChangeText={text => setnationalId(text)} />
-                <Text style={styles.error}>{errorMsg}</Text>
+            <Text style={styles.screenTitle}>Sign in</Text>
+            <View
+                style={styles.container}>
+                <View style={styles.inputView} >
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder="National Id..."
+                        placeholderTextColor="#09D189"
+                        onChangeText={text => setnationalId(text)} />
+                    <Text style={styles.error}>{errorMsg}</Text>
+                </View>
+                <View style={styles.inputView} >
+                    <TextInput
+                        secureTextEntry
+                        style={styles.inputText}
+                        placeholder="Password..."
+                        placeholderTextColor="#09D189"
+                        onChangeText={text => setPassword(text)} />
+                    <Text style={styles.error}>{errorMsg}</Text>
+                </View>
+                {/* <TouchableOpacity>
+                    <Text style={styles.forgot}>Forgot Password?</Text>
+                </TouchableOpacity> */}
+                <LinearGradient colors={["#09D189", "#9F2FFF"]} location={[0, 1]} start={[1, 0]}
+                    end={[0, 1]} style={styles.loginBtn}>
+                    <TouchableOpacity onPress={handleSubmit}>
+                        <Text style={styles.loginText}>Sign in{" "} <Surface width={25} height={15} /></Text>
+                    </TouchableOpacity>
+                </LinearGradient>
             </View>
-            <View style={styles.inputView} >
-                <TextInput
-                    secureTextEntry
-                    style={styles.inputText}
-                    placeholder="Password..."
-                    placeholderTextColor="#fff"
-                    onChangeText={text => setPassword(text)} />
-                <Text style={styles.error}>{errorMsg}</Text>
-            </View>
-            <TouchableOpacity>
-                <Text style={styles.forgot}>Forgot Password?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.loginBtn} onPress={handleSubmit}>
-                <Text style={styles.loginText}>LOGIN</Text>
-            </TouchableOpacity>
         </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
+    screen: {
+        backgroundColor: "#EAF7F2"
+    },
+    header: {
+        alignSelf: "center",
+        width: "100%",
+        height: "45%",
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: "#2D2D2D",
+        // borderTopStartRadius: 25,
+        // borderTopEndRadius: 25,
+        borderBottomStartRadius: 30,
+        borderBottomRightRadius: 30,
+        marginBottom: 15
+    },
+    headerText: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: "bold"
+    },
+    screenTitle: {
+        color: "#474747",
+        fontSize: 25,
+        fontWeight: "bold",
+        marginLeft: 25,
+        marginBottom: 25
+    },
     container: {
-        flex: 1,
-        backgroundColor: '#2d2d2d',
+        // flex: 1,
+        // backgroundColor: '#2d2d2d',
         alignItems: 'center',
         justifyContent: 'center',
     },
     logo: {
-        marginBottom: 50
+        // marginBottom: 10
     },
     inputView: {
         width: "80%",
-        backgroundColor: "#808080",
+        backgroundColor: "transparent",
+        borderWidth: 2,
+        borderColor: "#09D189",
         borderRadius: 25,
         height: 50,
         marginBottom: 20,
@@ -97,24 +141,26 @@ const styles = StyleSheet.create({
     },
     inputText: {
         height: 50,
-        color: "white"
+        fontSize: 18
     },
     forgot: {
         color: "#fff",
         fontSize: 11
     },
     loginBtn: {
-        width: "80%",
-        backgroundColor: "#fff",
+        marginTop: 10,
+        width: "50%",
         borderRadius: 25,
-        height: 50,
+        height: 55,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 40,
+        // marginTop: 40,
         marginBottom: 10
     },
     loginText: {
-        color: "#2d2d2d"
+        color: "#fff",
+        fontSize: 20,
+        fontWeight: "bold"
     },
     imgLogo: {
         resizeMode: "contain",

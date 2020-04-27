@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
-import { View, TextInput, Text, TouchableHighlight, StyleSheet } from "react-native";
+import { View, TextInput, KeyboardAwareScrollView, TouchableHighlight } from "react-native";
+import SendIcon from '../../../assets/images/send.svg'
 
 import styles from '../style';
 //The bar at the bottom with a textbox and a send button.
@@ -22,12 +23,12 @@ export default InputBar = (props) => {
 
     return (
         <View style={styles.inputBar}>
-            <TextInput style={{
-                ...styles.textBox
+            <TextInput style={
+                styles.textBox
                 // , position: 'absolute',
                 // width: '100%',
                 // bottom: props.keyboardOffset
-            }}
+            }
                 ref={autogrowInput}
                 // multiline={true}
                 // defaultHeight={30}
@@ -36,7 +37,8 @@ export default InputBar = (props) => {
                 onContentSizeChange={props.onSizeChange}
                 value={props.text} />
             <TouchableHighlight style={styles.sendButton} onPress={() => props.onSendPressed()}>
-                <Text style={{ color: 'white' }}>Send</Text>
+                {/* <Text style={{ color: 'white' }}>Send</Text> */}
+                <SendIcon />
             </TouchableHighlight>
         </View>
     );

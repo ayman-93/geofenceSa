@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, ScrollView, Keyboard, YellowBox } from "react-native";
+import { View, ScrollView, Keyboard, YellowBox, Text, StyleSheet } from "react-native";
 
 import socket from '../../utils/socket'
 import MessageBubble from './components/MessageBubble';
 import InputBar from './components/InputBar';
-import styles from './style';
+// import styles from './style';
+import MenuIcon from '../../assets/images/menu.svg';
+import NotificationIcon from '../../assets/images/notification.svg'
 
 YellowBox.ignoreWarnings([
     'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
@@ -28,9 +30,9 @@ export default ChatView = () => {
         Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
         Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
 
-        setTimeout(function () {
-            scrollViewControl.scrollToEnd();
-        }.bind(this))
+        // setTimeout(function () {
+        //     scrollViewControl.scrollToEnd();
+        // }.bind(this))
 
         return () => {
             Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
@@ -47,18 +49,18 @@ export default ChatView = () => {
     //Without this, whatever message is the keyboard's height from the bottom will look like the last message.
     const _keyboardDidShow = (keyboardOffset) => {
         setKeyboardOffset(keyboardOffset);
-        scrollViewControl.scrollToEnd();
+        // scrollViewControl.scrollToEnd();
     }
 
     //When the keyboard dissapears, this gets the ScrollView to move the last message back down.
     const _keyboardDidHide = (keyboardOffset) => {
         setKeyboardOffset(keyboardOffset);
-        scrollViewControl.scrollToEnd();
+        // scrollViewControl.scrollToEnd();
     }
 
 
     useEffect(() => {
-        scrollViewControl.scrollToEnd();
+        // scrollViewControl.scrollToEnd();
     }, [messages])
 
     const _sendMessage = () => {
@@ -81,7 +83,7 @@ export default ChatView = () => {
     //The real solution here is probably a fork of AutogrowInput that can provide this information.
     const _onInputSizeChange = () => {
         //   setTimeout(function() {
-        scrollViewControl.scrollToEnd({ animated: false });
+        // scrollViewControl.scrollToEnd({ animated: false });
         //   }.bind(this))
     }
 
@@ -90,8 +92,14 @@ export default ChatView = () => {
     const viewMessages = messages.map((message, index) => <MessageBubble key={index} direction={message.direction} text={message.text} />);
 
     return (
-        <View style={styles.outer}>
-            <ScrollView ref={ref => scrollViewControl = ref} style={styles.messages}>
+        // <View style={styles.outer}>
+        <View style={styles.container}>
+            <Text style={styles.title}>Chat</Text>
+            <View style={styles.screenIcon}>
+                <MenuIcon />
+                <NotificationIcon />
+            </View>
+            <ScrollView style={styles.messages}>
                 {viewMessages}
             </ScrollView>
             <InputBar onSendPressed={() => _sendMessage()}
@@ -102,3 +110,28 @@ export default ChatView = () => {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        marginTop: 30,
+        flex: 1,
+        flexDirection: "column",
+        alignItems: "center",
+        backgroundColor: "#EAF7F2"
+    },
+    title: {
+        fontSize: 25,
+        fontWeight: "bold",
+        color: "#09D189"
+    },
+    screenIcon: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: "90%"
+    },
+    messages: {
+        marginTop: 10,
+        // borderWidth: 1,
+        width: '90%',
+    }
+})

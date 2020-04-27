@@ -4,7 +4,7 @@ import { View, ScrollView, FlatList, Text, StyleSheet } from "react-native";
 export default InstructionsSceen = () => {
     const [instructions, setInstructions] = useState([]);
     useEffect(() => {
-        fetch("http://192.168.1.71:3001/instructions")
+        fetch("http://18.184.129.69/siaj-api/instructions")
             .then(res => res.json())
             .then(({ instructions }) => setInstructions(instructions))
             .catch(err => console.log(err))

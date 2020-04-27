@@ -91,6 +91,8 @@ app.use(cors());
 app.use(express.json());
 
 /*  ROUTES  */
+
+app.get('/', (req, res) => res.send('Hello, Server is runing!'))
 const usersRouter = require("./routes/users");
 app.use("/users", usersRouter);
 
@@ -100,6 +102,6 @@ app.use('/violations', violationsRouter);
 const instructionsRouter = require('./routes/instructions');
 app.use('/instructions', instructionsRouter);
 
-http.listen(process.env.PORT, () =>
+http.listen(process.env.PORT, "0.0.0.0", () =>
     console.log(`server has started at port ${process.env.PORT}`)
 );

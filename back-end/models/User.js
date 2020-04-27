@@ -30,8 +30,7 @@ const userSchema = new Schema({
             },
             recordDate: {
                 type: Date,
-                required: true,
-                default: new Date()
+                default: Date.now
             }
         }
     ],

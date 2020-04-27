@@ -115,6 +115,17 @@ router.delete("/:id/:violationId", getUser, async (req, res) => {
     }
 })
 
+// Add user temperature record.
+router.patch('/:id/temperature', getUser, async (req, res) => {
+    try {
+        res.user.userTemperature.push(req.body.userTemperature);
+        await res.user.save();
+        return res.json(req.user.userTemperature)
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+})
+
 //getUser middleware
 async function getUser(req, res, next) {
     let user;

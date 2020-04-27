@@ -11,7 +11,10 @@ import Chat from '../assets/images/message.svg';
 import NotificationIcon from '../assets/images/notification.svg'
 import CountDistance from '../utils/CountDistance';
 import TemperSquare from '../components/TemperSquare'
-
+import NormalFever from '../assets/images/NormalFever.svg'
+import MediumFever from '../assets/images/MediumFever.svg'
+import HighFever from '../assets/images/HighFever.svg'
+import LongNormalFever from '../assets/images/LongNormalFever.svg'
 
 const patchData = async (url = '', data = {}) => {
     // Default options are marked with *
@@ -138,18 +141,34 @@ export default HomeScreen = ({ navigation, route }) => {
             <View style={styles.card}>
                 <View style={styles.cardHrader}>
                     <Text style={styles.cardTitle}>Current Temperature</Text>
+                    <TouchableOpacity style={{ flexDirection: "row" }}><Text style={styles.cardMoreBtn}>Input{" "}</Text><View style={{ marginTop: 6 }}><Surface /></View>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.longCard}>
+                    <LongNormalFever width="100%" />
+                </View>
+                <View style={styles.cardHrader}>
+                    <Text style={styles.cardTitle}>Latest Temperature</Text>
                     <TouchableOpacity style={{ flexDirection: "row" }}><Text style={styles.cardMoreBtn}>Previous{" "}</Text><View style={{ marginTop: 6 }}><Surface /></View>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.nestedCard}>
                     <TouchableOpacity onPress={() => addTemperatureRecord(user._id, "40°")}>
-                        <TemperSquare color="#FF7442" text="High Fever" subText="40°" />
+                        {/* <TemperSquare color="#FF7442" text="High Fever" subText="40°" /> */}
+                        <View style={styles.tempIcon}>
+                            <HighFever />
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => addTemperatureRecord(user._id, "38.7°")}>
-                        <TemperSquare color="#FACB39" text="Medium Fever" subText="38.7°" />
+                        {/* <TemperSquare color="#FACB39" text="Medium Fever" subText="38.7°" /> */}
+                        <View style={styles.tempIcon}>
+                            <MediumFever />
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => addTemperatureRecord(user._id, "37.3°")}>
-                        <TemperSquare color="#FF7442" text="Normal Fever" subText="37.3°" />
+                        <View style={styles.tempIcon}>
+                            <NormalFever />
+                        </View>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -234,6 +253,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#EAF7F2"
     },
+    longCard: {
+        flexDirection: "row",
+        marginBottom: 20
+    },
     title: {
         fontSize: 25,
         fontWeight: "bold",
@@ -282,5 +305,8 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: 20,
         right: 20
+    },
+    tempIcon: {
+        margin: 15
     }
 })

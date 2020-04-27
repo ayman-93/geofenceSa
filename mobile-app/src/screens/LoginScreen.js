@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Image, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Image, KeyboardAvoidingView, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import EnLogo from '../assets/images/siajlabs-logo-EN.svg';
 import Surface from '../assets/images/surface1.svg';
+import Background from '../assets/images/background.png';
 
 async function postData(url = '', data = {}) {
     // Default options are marked with *
@@ -52,10 +53,18 @@ export default LoginScreen = ({ navigation, route }) => {
             style={styles.screen}
             behavior="padding"
         >
+            {/* <ImageBackground source={Background} style={{ flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center" }} > */}
             <View style={styles.header}>
-                <EnLogo width={170} height={170} />
-                <Text style={styles.headerText}>Welcome Back</Text>
+                <ImageBackground source={Background} style={styles.Background}>
+                    <View style={styles.headerContainer}>
+                        <EnLogo width={170} height={170} />
+                        <Text style={styles.headerText}>Welcome Back</Text>
+                    </View>
+                </ImageBackground>
             </View>
+            {/* </ImageBackground> */}
             <Text style={styles.screenTitle}>Sign in</Text>
             <View
                 style={styles.container}>
@@ -94,11 +103,21 @@ const styles = StyleSheet.create({
     screen: {
         backgroundColor: "#EAF7F2"
     },
+    Background: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+        alignItems: 'center',
+        overflow: 'hidden',
+
+        borderBottomStartRadius: 30,
+        borderBottomRightRadius: 30,
+    },
     header: {
-        alignSelf: "center",
+        // alignSelf: "center",
         width: "100%",
         height: "45%",
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: "#2D2D2D",
         // borderTopStartRadius: 25,
@@ -106,6 +125,9 @@ const styles = StyleSheet.create({
         borderBottomStartRadius: 30,
         borderBottomRightRadius: 30,
         marginBottom: 15
+    },
+    headerContainer: {
+        alignItems: "center"
     },
     headerText: {
         color: 'white',
